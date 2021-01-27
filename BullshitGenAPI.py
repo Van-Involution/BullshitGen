@@ -52,14 +52,19 @@ def generate(keys: Union[str, List[str], Set[str]], limit: int = 5):
         return text
 
 
+def bullshit_say(src: CommandSource):
+    server = src.get_server()
+    server.broadcast(generate(DEFAULT_KEY))
+
+
 def on_load(server: ServerInterface, info: Info):
-    server.register_help_message(prefix='!!bullshit', message='', permission=2)
+    server.register_help_message(prefix='!!bullshit', message='Get a text like bullshit', permission=2)
     server.register_command(
         Literal('!!bullshit')
         .then(
-            Literal('say').runs(lambda src: src.g)
+            Literal('get').runs(lambda src: src.reply(generate(DEFAULT_KEY)))
         )
         .then(
-            Literal('tell').runs(lambda src: src.reply(generate(DEFAULT_KEY)))
+            Literal('say').runs(bullshit_say)
         )
     )
