@@ -2,69 +2,65 @@
 
 from typing import *
 from json import load
-import random
+from typing import List
+from random import randint, choice
 
 from mcdreforged.api.all import *
-from typing import List
 
 PLUGIN_METADATA = {
     'id': 'bullshit_generator_api',
     'version': '1.0.0',
-    'name': 'BullshitGenAPI.py',
+    'name': 'BullshitGenAPI',
     'description': '',
     'author': [
         'Van_Involution'
     ],
-    'link': 'https://github.com/Van-Involution/MCDR-Plugins',
+    'link': 'https://github.com/Van-Involution/BullshitGenAPI',
     'dependencies': {
         'mcdreforged': '>=1.0.0'
     }
 }
 
-DATA_PATH = 'config/BullshitData.json'
+DEFAULT_DATA_PATH = 'config/BullshitData.json'
 DEFAULT_KEY = '§ktest§r'
+DEFAULT_PREFIX = '!!bullshit'
 
 
-def generate(keys: Union[str, List[str], Set[str]], limit: int = 5):
+def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 200, famous_chance: int = 10):
     if type(keys) == str:
         key_list = [keys]
     else:
         key_list = list(keys)
-    with open(file=DATA_PATH, mode='r') as data_file:
+    with open(file=DEFAULT_DATA_PATH, mode='r') as data_file:
         data = load(data_file)
-    bosh: List[str] = data['bosh']
-    before: List[str] = data['before']
-    after: List[str] = data['after']
-    famous: List[str] = data['famous']
-    text = RTextList()
-    for r in range(1, limit):
-        i = random.randint(1, 100)
-        if i <= 5:
-            text.append('\n')
-        elif i <= 10:
-            text.append(random.choice(famous).format(
-                before=random.choice(before),
-                after=random.choice(after)
-            ))
+    text = '狗屁不通文章：\n'
+    while len(text) < limit:
+        if randint(1, 100) <= famous_chance:
+            text += choice(data['famous']).format(
+                says=choice(data['says']),
+                sothat=choice(data['sothat'])
+            )
         else:
-            text.append(random.choice(bosh).format(key=random.choice(key_list)))
-    else:
-        return text
+            text += choice(data['bosh']).format(key=choice(key_list))
+    return RText(text)
 
 
-def bullshit_say(src: CommandSource):
-    server = src.get_server()
-    server.broadcast(generate(DEFAULT_KEY))
+def show_help_message(src: CommandSource):
+    src.reply(RTextList(
+        RText(f'§7{DEFAULT_PREFIX} get§r 获取一段狗屁不通文章\n').c(RAction.suggest_command, f'{DEFAULT_PREFIX} get'),
+        RText(f'§7{DEFAULT_PREFIX} say§r 广播一段狗屁不通文章\n').c(RAction.suggest_command, f'{DEFAULT_PREFIX} say')
+    ))
 
 
 def on_load(server: ServerInterface, info: Info):
     server.register_help_message(prefix='!!bullshit', message='Get a text like bullshit', permission=2)
     server.register_command(
         Literal('!!bullshit')
+        .runs(show_help_message)
         .then(
-            Literal('get').runs(lambda src: src.reply(generate(DEFAULT_KEY)))
+            Literal('get').runs(lambda src: src.reply(generate()))
         )
         .then(
-            Literal('say').runs(bullshit_say)
+            Literal('say').runs(lambda src: src.get_server().broadcast(generate()))
         )
     )
