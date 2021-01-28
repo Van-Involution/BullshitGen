@@ -24,6 +24,7 @@ PLUGIN_METADATA = {
 DEFAULT_DATA_PATH = 'config/BullshitData.json'
 DEFAULT_KEY = '§ktest§r'
 DEFAULT_PREFIX = '!!bullshit'
+REPO_URL = PLUGIN_METADATA['link']
 
 
 def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 200, famous_chance: int = 10):
@@ -33,7 +34,8 @@ def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 2
         key_list = list(keys)
     with open(file=DEFAULT_DATA_PATH, mode='r') as data_file:
         data = load(data_file)
-    text = '狗屁不通文章：\n'
+    title = RText('[§e§l§m狗屁不通文章§r]').h(f'§lDocument§r: §n{REPO_URL}§r').c(RAction.open_url, REPO_URL)
+    text = '\n '
     while len(text) < limit:
         if randint(1, 100) <= famous_chance:
             text += choice(data['famous']).format(
@@ -42,7 +44,7 @@ def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 2
             )
         else:
             text += choice(data['bosh']).format(key=choice(key_list))
-    return RText(text)
+    return RTextList(title, text)
 
 
 def show_help_message(src: CommandSource):
@@ -52,7 +54,7 @@ def show_help_message(src: CommandSource):
     ))
 
 
-def on_load(server: ServerInterface, info: Info):
+def on_load(server: ServerInterface, prev):
     server.register_help_message(prefix='!!bullshit', message='Get a text like bullshit', permission=2)
     server.register_command(
         Literal('!!bullshit')
