@@ -1,11 +1,12 @@
 # -*- coding: UTF-8 -*-
 
-from typing import *
-from json import load
-from typing import List
+from typing import Union, Set, List
 from random import randint, choice
+from json import load
 
-from mcdreforged.api.all import *
+from mcdreforged.api.types import ServerInterface, CommandSource
+from mcdreforged.api.rtext import RText, RTextList, RAction
+from mcdreforged.api.command import Literal
 
 PLUGIN_METADATA = {
     'id': 'bullshit_generator_api',
@@ -49,20 +50,12 @@ def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 2
 
 def show_help_message(src: CommandSource):
     src.reply(RTextList(
-        RText(f'§7{DEFAULT_PREFIX} get§r 获取一段狗屁不通文章\n').c(RAction.suggest_command, f'{DEFAULT_PREFIX} get'),
-        RText(f'§7{DEFAULT_PREFIX} say§r 广播一段狗屁不通文章\n').c(RAction.suggest_command, f'{DEFAULT_PREFIX} say')
+        RText(f'§7{DEFAULT_PREFIX}§r 获取一段狗屁不通文章\n').c(RAction.suggest_command, DEFAULT_PREFIX),
     ))
 
 
 def on_load(server: ServerInterface, prev):
-    server.register_help_message(prefix='!!bullshit', message='Get a text like bullshit', permission=2)
+    server.register_help_message('!!bullshit', 'Get bullshit-like text')
     server.register_command(
-        Literal('!!bullshit')
-        .runs(show_help_message)
-        .then(
-            Literal('get').runs(lambda src: src.reply(generate()))
-        )
-        .then(
-            Literal('say').runs(lambda src: src.get_server().broadcast(generate()))
-        )
+        Literal('!!bullshit').runs(show_help_message)
     )
