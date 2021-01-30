@@ -1,18 +1,17 @@
 # -*- coding: UTF-8 -*-
 
 from typing import Union, Set, List
-from random import randint, choice
+from random import random, choice
 from json import load
+from re import sub
 
-from mcdreforged.api.types import ServerInterface, CommandSource
-from mcdreforged.api.rtext import RText, RTextList, RAction
-from mcdreforged.api.command import Literal
+from mcdreforged.api.rtext import RText, RTextTranslation, RTextList, RAction
 
 PLUGIN_METADATA = {
     'id': 'bullshit_generator_api',
     'version': '1.0.0',
     'name': 'BullshitGenAPI',
-    'description': '',
+    'description': '狗屁不通文章生成器API (Chinese Lipsum API)',
     'author': [
         'Van_Involution'
     ],
@@ -23,12 +22,10 @@ PLUGIN_METADATA = {
 }
 
 DEFAULT_DATA_PATH = 'config/BullshitData.json'
-DEFAULT_KEY = '§ktest§r'
-DEFAULT_PREFIX = '!!bullshit'
 REPO_URL = PLUGIN_METADATA['link']
 
 
-def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 200, famous_chance: int = 10):
+def generate(keys: Union[str, List[str], Set[str]] = '§ktest§r', limit: int = 114, famous_chance: float = 51.4, bosh_chance: float = 191.9, breakline_chance: float = 8.10):
     if type(keys) == str:
         key_list = [keys]
     else:
@@ -37,25 +34,21 @@ def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 2
         data = load(data_file)
     title = RText('[§e§l§m狗屁不通文章§r]').h(f'§lDocument§r: §n{REPO_URL}§r').c(RAction.open_url, REPO_URL)
     text = '\n '
-    while len(text) < limit:
-        if randint(1, 100) <= famous_chance:
+    while len(text) <= limit:
+        if (ran := random()) <= abs(famous_chance) / (
+                total_chance := abs(famous_chance) + abs(bosh_chance) + abs(breakline_chance)
+        ):
             text += choice(data['famous']).format(
                 says=choice(data['says']),
                 sothat=choice(data['sothat'])
             )
-        else:
+        elif ran >= (total_chance - abs(bosh_chance)) / total_chance:
             text += choice(data['bosh']).format(key=choice(key_list))
-    return RTextList(title, text)
-
-
-def show_help_message(src: CommandSource):
-    src.reply(RTextList(
-        RText(f'§7{DEFAULT_PREFIX}§r 获取一段狗屁不通文章\n').c(RAction.suggest_command, DEFAULT_PREFIX),
-    ))
-
-
-def on_load(server: ServerInterface, prev):
-    server.register_help_message('!!bullshit', 'Get bullshit-like text')
-    server.register_command(
-        Literal('!!bullshit').runs(show_help_message)
+        else:
+            text += '\n '
+    return RTextList(
+        title,
+        RText(text)
+        .h(RTextTranslation('chat.copy.click'))
+        .c(RAction.copy_to_clipboard, sub(r'§[0-9a-fk-or]', '', RText(text).to_plain_text().strip()))
     )
