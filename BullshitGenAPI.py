@@ -35,9 +35,9 @@ def generate(keys: Union[str, List[str], Set[str]] = '§ktest§r', limit: int = 
     title = RText('[§e§l§m狗屁不通文章§r]').h(f'§lDocument§r: §n{REPO_URL}§r').c(RAction.open_url, REPO_URL)
     text = '\n '
     while len(text) <= limit:
-        if (ran := random()) <= abs(famous_chance) / (
-                total_chance := abs(famous_chance) + abs(bosh_chance) + abs(breakline_chance)
-        ):
+        ran = random()
+        total_chance = abs(famous_chance) + abs(bosh_chance) + abs(breakline_chance)
+        if ran <= abs(famous_chance) / total_chance:
             text += choice(data['famous']).format(
                 says=choice(data['says']),
                 sothat=choice(data['sothat'])
