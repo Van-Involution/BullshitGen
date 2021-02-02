@@ -10,14 +10,14 @@ from mcdreforged.api.types import ServerInterface
 from mcdreforged.api.rtext import RText, RTextTranslation, RTextList, RAction
 
 PLUGIN_METADATA = {
-    'id': 'bullshit_generator_api',
+    'id': 'bullshit_generator',
     'version': '1.0.0',
-    'name': 'BullshitGenAPI',
+    'name': 'BullshitGen',
     'description': '狗屁不通文章生成器API (Chinese Lipsum API)',
     'author': [
         'Van_Involution'
     ],
-    'link': 'https://github.com/Van-Involution/BullshitGenAPI',
+    'link': 'https://github.com/Van-Involution/BullshitGen',
     'dependencies': {
         'mcdreforged': '>=1.0.0'
     }
