@@ -5,8 +5,8 @@ from random import random, choice
 from json import load
 from re import sub
 
-from mcdreforged.api.command import *
-from mcdreforged.api.types import *
+from mcdreforged.api.command import Literal, Integer, GreedyText
+from mcdreforged.api.types import ServerInterface
 from mcdreforged.api.rtext import RText, RTextTranslation, RTextList, RAction
 
 PLUGIN_METADATA = {
@@ -37,9 +37,9 @@ def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 1
         key_list = list(keys)
     with open(file=DEFAULT_DATA_PATH, mode='r') as data_file:
         data = load(data_file)
-    title = RText(f'[{DEFAULT_TITLE}]').h(f'§lDocument§r: §n{REPO_URL}§r').c(RAction.open_url, REPO_URL)
+    title = RText(f'[{DEFAULT_TITLE}]').h(f'§lDocs§r: §n{REPO_URL}§r').c(RAction.open_url, REPO_URL)
     text = '\n '
-    while len(text) <= abs(limit):
+    while len(text) < abs(limit):
         ran = random()
         total_chance = abs(famous_chance) + abs(bosh_chance) + abs(breakline_chance)
         if ran <= abs(famous_chance) / total_chance:
@@ -52,10 +52,9 @@ def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 1
         else:
             text += '\n '
     return RTextList(
-        title,
-        RText(text)
+        title, RText(text)
         .h(RTextTranslation('chat.copy.click'))
-        .c(RAction.copy_to_clipboard, sub(r'§[0-9a-fk-or]', '', RText(text).to_plain_text().strip()))
+        .c(RAction.copy_to_clipboard, sub(r'§[0-9a-fk-or]', '', RText(text).to_plain_text().strip())), '\n'
     )
 
 
