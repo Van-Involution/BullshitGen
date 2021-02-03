@@ -59,7 +59,7 @@ def generate(
 The following are explanations of parameters:
 
 - `keys`: Key word of article, support string, string-based list or set (`Union[str, list[str], set[str]]`) , generator function will generate article based on key words input; default value (`DEFAULT_KEY`) is `§6§l§ktest§r`
-- `limit`: word count limit of article, support integer; default value is `114`
+- `limit`: Word count limit of article, support integer; default value is `114`
 - `famous_chance`: **Relative probability** of famous quotes, support float; default value is `51.4`
 - `bosh_chance`: **Relative probability** of bosh, support float; default value is `191.9`
 - `breakline_chance`: **Relative probability** of linebreaks, support float; default value is `8.10`
