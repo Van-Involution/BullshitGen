@@ -10,7 +10,7 @@
 
 ### 最新发布
 
-在 [**Releases 页面**](https://github.com/Van-Involution/BullshitGen/releases)下载最新的 `BullshitGen.zip`，解压后将 `BullshitGen.py` 放入 `plugins/` 目录中，将 `BullshitData.json` 放入 `config/` 目录中。
+在 [**Releases 页面**](https://github.com/Van-Involution/BullshitGen/releases)下载最新的 `BullshitGen-<版本号>.zip`，解压后将 `BullshitGen.py` 放入 `plugins/` 目录中，将 `BullshitData.json` 放入 `config/` 目录中。
 
 ### 最新源码
 

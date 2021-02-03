@@ -13,7 +13,7 @@
 
 ### Latest Release
 
-Download latest `BullshitGen.zip` from [**Releases Page**](https://github.com/Van-Involution/BullshitGen/releases) and unzip it, then put `BullshitGen.py` into `plugins/` directory, and `BullshitData.json` into `config/` directory.
+Download latest `BullshitGen-<version>.zip` from [**Releases Page**](https://github.com/Van-Involution/BullshitGen/releases) and unzip it, then put `BullshitGen.py` into `plugins/` directory, and `BullshitData.json` into `config/` directory.
 
 ### Latest Source Code
 
