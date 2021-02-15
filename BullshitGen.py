@@ -9,7 +9,7 @@ from mcdreforged.api.rtext import RText, RTextTranslation, RTextList, RAction
 
 PLUGIN_METADATA = {
     'id': 'bullshit_generator',
-    'version': '1.0.1',
+    'version': '1.0.2',
     'name': 'BullshitGen',
     'description': '狗屁不通文章生成器API (Chinese Lipsum API)',
     'author': [
