@@ -1,5 +1,3 @@
-# -*- coding: UTF-8 -*-
-
 from typing import Union, Set, List
 from random import random, choice
 from json import load
