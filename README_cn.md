@@ -4,13 +4,13 @@
 
 > **注意**：BullshitGen 基于 [**MCDR v1.x**](https://github.com/Fallen-Breath/MCDReforged) 开发，并且**不支持** MCDR v0.x
 
-**BullshitGen** 是一个 MCDR 插件，移植了 [menzi11](https://github.com/menzi11)/[**BullshitGenerator**](https://github.com/menzi11/BullshitGenerator) 的代码和数据到 MCDR 平台，提供在聊天框中生成一段可复制、可自定义字数和关键词的**狗屁不通文章**生成器命令 `!!bullshit`，以及可被其他插件调用的自定义**狗屁不通文章**生成器函数 `generate()`。
+**BullshitGen** 是一个 MCDR 插件，移植了 [menzi11](https://github.com/menzi11) / [**BullshitGenerator**](https://github.com/menzi11/BullshitGenerator) 的代码和数据到 MCDR 平台，提供在聊天框中生成一段可复制、可自定义字数和关键词的**狗屁不通文章**生成器命令 `!!bullshit`，以及可被其他插件调用的自定义**狗屁不通文章**生成器函数 `generate()`。
 
 ## 安装插件
 
 ### 最新发布
 
-在 [**Releases 页面**](https://github.com/Van-Involution/BullshitGen/releases)下载最新的 `BullshitGen-<版本号>.zip`，解压后将 `BullshitGen.py` 放入 `plugins/` 目录中，将 `BullshitData.json` 放入 `config/` 目录中。
+在 [**Releases 页面**](https://github.com/Van-Involution/BullshitGen/releases) 下载最新的 `BullshitGen-<版本号>.zip`，解压后将 `BullshitGen.py` 放入 `plugins/` 目录中，将 `BullshitData.json` 放入 `config/` 目录中。
 
 ### 最新源码
 
@@ -37,7 +37,7 @@ plugin_directories:
 所有参数均为可选，可以填入多个 `<关键词>` 参数，但在 `<关键词>` 参数前必须填入 `<字数>` 参数；若有未填参数，则使用**默认值**：
 
 - `<字数>`：`200`
-- `<关键词>`：`§6§l§ktest§r`（聊天框[**格式化代码**](https://minecraft-zh.gamepedia.com/%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81)支持正在计划开发）
+- `<关键词>`：`§6§l§ktest§r`（聊天框 [**格式化代码**](https://minecraft-zh.gamepedia.com/%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%BB%A3%E7%A0%81) 支持正在计划开发）
 
 ### 函数
 
@@ -45,12 +45,13 @@ plugin_directories:
 
 ```Python
 def generate(
-    keys: Union[str, list[str], set[str]] = DEFAULT_KEY,
+    keys: Union[str, List[str], Set[str]] = DEFAULT_KEY,
     limit: int = 114,
     famous_chance: float = 51.4,
     bosh_chance: float = 191.9,
     breakline_chance: float = 8.10
-) -> RTextList
+) -> RTextBase:
+    ...
 ```
 
 以下为参数含义：

@@ -4,7 +4,7 @@
 
 > **Note**: BullshitGen is developed based on [**MCDR v1.x**](https://github.com/Fallen-Breath/MCDReforged), and **DO NOT** support MCDR v0.x
 
-**BullshitGen** is a MCDR plugin, which transplanted code and data from [menzi11](https://github.com/menzi11)/[**BullshitGenerator**](https://github.com/menzi11/BullshitGenerator) to MCDR platform, provide command `!!bullshit` to generate copyable **bullshit article** with customizable word count and key words in chat bar, and customized **bullshit article** generator function `generate()` which can be called by other plugins.
+**BullshitGen** is a MCDR plugin, which transplanted code and data from [menzi11](https://github.com/menzi11) / [**BullshitGenerator**](https://github.com/menzi11/BullshitGenerator) to MCDR platform, provide command `!!bullshit` to generate copyable **bullshit article** with customizable word count and key words in chat bar, and customized **bullshit article** generator function `generate()` which can be called by other plugins.
 
 > ### What is **bullshit article**?
 > You can think of it as **Chinese Lipsum**,, and it was first invented for Chinese typesetting testing with some funny effect, but it's **NOT offical** Chinese filling text.
@@ -48,12 +48,13 @@ Plugin defines a callable generator function:
 
 ```Python
 def generate(
-    keys: Union[str, list[str], set[str]] = DEFAULT_KEY,
+    keys: Union[str, List[str], Set[str]] = DEFAULT_KEY,
     limit: int = 114,
     famous_chance: float = 51.4,
     bosh_chance: float = 191.9,
     breakline_chance: float = 8.10
-) -> RTextList
+) -> RTextBase:
+    ...
 ```
 
 The following are explanations of parameters:
