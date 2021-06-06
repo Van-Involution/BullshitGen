@@ -13,9 +13,9 @@ PLUGIN_METADATA = {
     'name': 'BullshitGen',
     'description': '狗屁不通文章生成器API (Chinese Lipsum API)',
     'author': [
-        'Van_Involution'
+        'Van_Nya'
     ],
-    'link': 'https://github.com/Van-Involution/BullshitGen',
+    'link': 'https://github.com/Van-Nya/BullshitGen',
     'dependencies': {
         'mcdreforged': '>=1.0.0'
     }
