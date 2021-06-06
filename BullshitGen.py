@@ -5,7 +5,7 @@ from re import sub
 
 from mcdreforged.api.command import Literal, Integer, GreedyText
 from mcdreforged.api.types import ServerInterface
-from mcdreforged.api.rtext import RText, RTextTranslation, RTextList, RAction
+from mcdreforged.api.rtext import RTextBase, RText, RTextTranslation, RTextList, RAction
 
 PLUGIN_METADATA = {
     'id': 'bullshit_generator',
@@ -28,7 +28,7 @@ DEFAULT_KEY = '§6§l§ktest§r'
 REPO_URL = PLUGIN_METADATA['link']
 
 
-def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 114, famous_chance: float = 51.4, bosh_chance: float = 191.9, breakline_chance: float = 8.10):
+def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 114, famous_chance: float = 51.4, bosh_chance: float = 191.9, breakline_chance: float = 8.10) -> RTextBase:
     if type(keys) == str:
         key_list = [keys]
     else:
