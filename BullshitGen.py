@@ -11,7 +11,7 @@ PLUGIN_METADATA = {
     'id': 'bullshit_generator',
     'version': '1.0.2',
     'name': 'BullshitGen',
-    'description': '狗屁不通文章生成器API (Chinese Lipsum API)',
+    'description': '狗屁不通文章生成器',
     'author': [
         'Van_Nya'
     ],
@@ -28,7 +28,23 @@ DEFAULT_KEY = '§6§l§ktest§r'
 REPO_URL = PLUGIN_METADATA['link']
 
 
-def generate(keys: Union[str, List[str], Set[str]] = DEFAULT_KEY, limit: int = 114, famous_chance: float = 51.4, bosh_chance: float = 191.9, breakline_chance: float = 8.10) -> RTextBase:
+def generate(
+        keys: Union[str, List[str], Set[str]] = DEFAULT_KEY,
+        limit: int = 114,
+        famous_chance: float = 51.4,
+        bosh_chance: float = 191.9,
+        breakline_chance: float = 8.10
+) -> RTextBase:
+    """
+    Bullshit article generator
+
+    :param keys: Keywords of article
+    :param limit: Limit of characters
+    :param famous_chance: Chance of famous sayings
+    :param bosh_chance: Chance of bosh
+    :param breakline_chance: Chance of linebreak
+    :return: Bullshit article
+    """
     if type(keys) == str:
         key_list = [keys]
     else:
